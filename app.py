@@ -93,7 +93,7 @@ def check_field_usage(dataset_id, result):
             else:
                 data = json.loads(r.text)
                 if not data.get('results').get('records'):
-                    count = total_records    
+                    count = 0
                 else:
                     count = data.get(
                         'results').get('records')[0].get('count')

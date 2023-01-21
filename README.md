@@ -25,9 +25,10 @@ write the dataset id e.g., 0Fb8c000000nJZvCAM:
 
 # Example of output
 
-| field            | count_null | perc_null  |
-| ---------------- | ---------- | ---------- |
-| Row 1, id        | Row 1, 120 | Row 1, 100 |
-| Row 2, IsDeleted | Row 2, -   | Row 2, -   |
+| field        | count_null | perc_null |
+| ------------ | ---------- | --------- |
+| id           | 0          | 0         |
+| SuppliedName | 118        | 98        |
+| IsDeleted    | -          | -         |
 
 `-` means the field doesn't exist in CRMA
