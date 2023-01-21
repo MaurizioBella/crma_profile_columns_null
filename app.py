@@ -4,20 +4,15 @@ import json
 import os
 
 def get_list_fields(object_name):
-    ''' Lists information about limits in your org '''
-    # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_limits.htm
     result = []
     sf = SalesforceConnection.getInstance()
     
     query = "select DeveloperName from FieldDefinition where EntityDefinition.DeveloperName  = '{0}'".format(
         object_name)
 
-    # data = sf.query_all_iter(
-    #     "select DeveloperName from FieldDefinition where EntityDefinition.DeveloperName  = 'Case'")
     data = sf.query_all_iter(query)
     print("list of all fields")
     for row in data:
-        # print(row["DeveloperName"])
         result.append(row["DeveloperName"])
     print(result)
     return result
@@ -114,10 +109,10 @@ def check_field_usage(dataset_id, result):
 if __name__ == '__main__':
     # object_name = 'Case'
     if os.path.exists(".env"):
-        object_name = input("write the object name e.g., Case:\n")
+        object_name = input("write the Salesforce object name e.g., Case:\n")
         # Add the <Dataset Id> https://developer.salesforce.com/docs/atlas.en-us.200.0.bi_dev_guide_rest.meta/bi_dev_guide_rest/bi_resources_dataset_id.htm
         # dataset_id = '0Fb8c000000nJZvCAM'
-        dataset_id = input ("write the dataset id e.g., 0Fb8c000000nJZvCAM:\n")
+        dataset_id = input ("write the CRM Analytics Dataset Id e.g., 0Fb8c000000nJZvCAM:\n")
         result = get_list_fields(object_name)
         check_field_usage(dataset_id, result)
     else:
