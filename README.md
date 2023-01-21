@@ -25,6 +25,8 @@ write the dataset id e.g., 0Fb8c000000nJZvCAM:
 
 # Example of output
 
+- output file: `output_profile_columns_null.csv`
+
 | field        | count_null | perc_null |
 | ------------ | ---------- | --------- |
 | id           | 0          | 0         |
