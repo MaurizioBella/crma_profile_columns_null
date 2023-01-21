@@ -80,19 +80,24 @@ def check_field_usage(dataset_id, result):
         }
 
         msgJson = json.dumps(query_null)
-
+        # print(msgJson)
         headers = {"Authorization": "Bearer " +
                    sf.session_id, "Content-Type": "application/json"}
 
         url_query = "{0}wave/query/".format(sf.base_url)
         r = requests.post(url_query, headers=headers, data=msgJson)
         try:
-            data = json.loads(r.text)
-            # body = r.json()
-            # print(data)
-            count = data.get(
-                'results').get('records')[0].get('count')
-            percentage = int(count / total_records * 100)
+            if r.status_code != 200:
+                count = '-'
+                percentage = '-'
+            else:
+                data = json.loads(r.text)
+                if not data.get('results').get('records'):
+                    count = total_records    
+                else:
+                    count = data.get(
+                        'results').get('records')[0].get('count')
+                percentage = int(count / total_records * 100)
             field_usage = '{0},{1},{2}\n'.format(i, count, percentage)
             print(field_usage)
             output.append(field_usage)
@@ -100,6 +105,7 @@ def check_field_usage(dataset_id, result):
             error = "AttributeError: {0}".format(ae)
         except IndexError as ie:
             error = "IndexError: {0}".format(ie)
+            print(error)
     print("check output_profile_columns_null.csv")
     with open('output_profile_columns_null.csv', 'w') as f:
         f.writelines(output)
