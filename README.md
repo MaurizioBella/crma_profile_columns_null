@@ -11,7 +11,7 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-- Create a file .env from env_template and add credentials
+- Create a file .env from env_template and add your Salesforce Org credentials
 
 # run it
 
