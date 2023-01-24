@@ -7,19 +7,19 @@ def get_list_fields(object_name):
     result = []
     sf = SalesforceConnection.getInstance()
     
-    query = "select DeveloperName from FieldDefinition where EntityDefinition.DeveloperName  = '{0}'".format(
+    query = "select QualifiedApiName from FieldDefinition where EntityDefinition.DeveloperName  = '{0}'".format(
         object_name)
 
     data = sf.query_all_iter(query)
     print("list of all fields")
     for row in data:
-        result.append(row["DeveloperName"])
+        result.append(row["QualifiedApiName"])
     print(result)
     return result
 
 
 def check_field_usage(dataset_id, result):
-    # result = ['CaseNumber']
+    # result = ['SDO_Quality_Score__c']
     import requests
 
     sf = SalesforceConnection.getInstance()
@@ -112,7 +112,7 @@ if __name__ == '__main__':
         object_name = input("write the Salesforce object name e.g., Case:\n")
         # Add the <Dataset Id> https://developer.salesforce.com/docs/atlas.en-us.200.0.bi_dev_guide_rest.meta/bi_dev_guide_rest/bi_resources_dataset_id.htm
         # dataset_id = '0Fb8c000000nJZvCAM'
-        dataset_id = input ("write the CRM Analytics Dataset Id e.g., 0Fb8c000000nJZvCAM:\n")
+        dataset_id = input ("write the CRM Analytics Dataset Id e.g., 0Fb8c000000GAV3CAO:\n")
         result = get_list_fields(object_name)
         check_field_usage(dataset_id, result)
     else:
